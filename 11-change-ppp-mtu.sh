@@ -12,9 +12,11 @@ while true; do
     pinterfaces=$(ls /etc/ppp/peers/)
     for pinterface in $pinterfaces
     do
-      sed -i 's/ 1492/ '$PTARGET'/g' /etc/ppp/peers/$pinterface
+      sed -i 's/ '$(($PTARGET-8))'/ '$PTARGET'/g' /etc/ppp/peers/$pinterface
       einterface=$(grep 'plugin rp-pppoe.so' /etc/ppp/peers/$pinterface | sed 's/plugin rp-pppoe.so //')
-      ip link set dev $einterface mtu 1508
+      ip link set dev $einterface mtu $(($PTARGET+8))
+      # Maybe your PPPoE is over a VLAN and you need this instead
+      # ip link set dev $einterface mtu $(($PTARGET+12)) && ip link set dev $einterface.6 mtu $(($PTARGET+8))
       ifconfig $einterface down && ifconfig $einterface up
     done
     killall pppd
