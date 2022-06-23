@@ -1,17 +1,16 @@
-# UDMP Monitor MTU
+# UDMP Monitor PPP MTU
 
-# Ubiquiti has added this as a part of the 1.12.13 EA firmware. This repository is now archived
-
-UDMP Monitor MTU is a shell script that checks all VLAN interfaces and LAN SFP+ ports on the UDM Pro and sets them to 9216. This allows for intervlan routing to take place without being fragmented. This runs every 5 seconds but can be modified if you change the sleep values in the script.
+UDMP Monitor PPP MTU is a shell script that checks the PPP WAN interface on a UDM Pro and sets the MTU to 1508. This effectively adds support for RFC4638 (baby jumbo frames) as used by many DSL ISPs in Europe. The script is forked from UDMP Monitor MTU at https://github.com/kalenarndt/udmp-jumbo-frames. This runs every 5 seconds but can be modified if you change the sleep values in the script.
 
 ## Pre-Requisites
-UDMP has to have the Boot script installed from this repo https://github.com/boostchicken/udm-utilities/tree/master/on-boot-script
+UDMP Monitor PPP MTU has to have the Boot script installed from this repo https://github.com/boostchicken/udm-utilities/tree/master/on-boot-script
 
 
 ## Installation
 
-1. Place the 10-monitor-mtu.sh in /mnt/data/on_boot.d/ folder and mark it as executable
-2. Place the 11-change-mtu.sh in the /mnt/data folder and mark it as exectable
+1. Place the 10-monitor-ppp-mtu.sh in /mnt/data/on_boot.d/ folder and mark it as executable
+2. Customise the 11-change-mtu.sh script to reflect your configuration - the defaults work well for FTTC and FTTP in the UK.
+3. Place the 11-change-mtu.sh in the /mnt/data folder and mark it as exectable
 
 ```bash
 chmod +x /mnt/data/on_boot.d/10-monitor-mtu.sh
