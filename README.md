@@ -9,7 +9,7 @@ UDMP Monitor PPP MTU has to have the Boot script installed from this repo https:
 ## Installation
 
 1. Place the 10-monitor-ppp-mtu.sh in /mnt/data/on_boot.d/ folder and mark it as executable
-2. Customise the 11-change-mtu.sh script to reflect your configuration - the defaults work well for FTTC and FTTP in the UK.
+2. Customise the 11-change-mtu.sh script to reflect your configuration - the defaults work well if all your PPP interfaces are FTTC and FTTP in the UK.
 3. Place the 11-change-mtu.sh in the /mnt/data folder and mark it as exectable
 
 ```bash
