@@ -25,7 +25,7 @@ while true; do
         # Update MTU in ppp interface config file
         sed -i 's/ '$(($PTARGET-8))'/ '$PTARGET'/g' /etc/ppp/peers/$pinterface
         # Determine eth interface associated with ppp interface
-        einterface=$(sed -n 's/plugin rp-pppoe.so \(.*\)/\1/p' /etc/ppp/peers/ppp0)
+        einterface=$(sed -n 's/plugin rp-pppoe.so \(.*\)/\1/p' /etc/ppp/peers/$pinterface)
         # Set eth interface MTU to ppp interface MTU + 8
         # This works for straight PPPoE as used in UK broadband
         ip link set dev $einterface mtu $(($PTARGET+8))
