@@ -15,6 +15,8 @@ UDMP Monitor PPP MTU has to have the Boot script installed from this repo https:
 3. Place the 11-change-ppp-mtu.sh in the /mnt/data folder and mark it as exectable
 
 ```bash
+curl -Lo /mnt/data/on_boot.d/10-monitor-ppp-mtu.sh https://raw.githubusercontent.com/TotalGriffLock/udmp-jumbo-frames-ppp/main/10-monitor-ppp-mtu.sh
+curl -Lo /mnt/data/11-change-ppp-mtu.sh https://raw.githubusercontent.com/TotalGriffLock/udmp-jumbo-frames-ppp/main/11-change-ppp-mtu.sh
 chmod +x /mnt/data/on_boot.d/10-monitor-ppp-mtu.sh
 chmod +x /mnt/data/11-change-ppp-mtu.sh
 ```
