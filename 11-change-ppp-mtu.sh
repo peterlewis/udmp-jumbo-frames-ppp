@@ -19,7 +19,7 @@ while true; do
     for pinterface in $pinterfaces
     do
       # Check to see if this is an interface we should be monitoring for MTU
-      if [[ $pinterfaces =~ $MINTERFACES ]]; then
+      if [[ $pinterface =~ $MINTERFACES ]]; then
         # We will be making some changes, set this flag
         changes=true
         # Update MTU in ppp interface config file
