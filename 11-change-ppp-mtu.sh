@@ -52,9 +52,8 @@ while true; do
         fi
       done
       if [[ $changes == "true" ]]; then
-        # If we made any changes to config files, kill pppd to apply changes (it gets restarted automatically)
+        # If we made any changes to config files, send signal to pppd to apply changes
         # This does take down existing ppp links but as pppd comes straight back up, so should the links
-        # Only kill pppd if there are ppp interfaces active and changes were made
         echo Sending SIGHUP to pppd > /dev/null
         killall -SIGHUP pppd
       fi
