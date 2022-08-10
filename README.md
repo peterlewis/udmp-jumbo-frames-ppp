@@ -20,7 +20,10 @@ curl -Lo /mnt/data/11-change-ppp-mtu.sh https://raw.githubusercontent.com/TotalG
 chmod +x /mnt/data/on_boot.d/10-monitor-ppp-mtu.sh
 chmod +x /mnt/data/11-change-ppp-mtu.sh
 ```
-
+The change will take effect on reboot, or you can kick it off by running:
+```
+/mnt/data/on_boot.d/10-monitor-ppp-mtu.sh
+```
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
