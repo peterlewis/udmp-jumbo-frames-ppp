@@ -56,6 +56,7 @@ while true; do
         # This does take down existing ppp links but as pppd comes straight back up, so should the links
         echo Sending SIGHUP to pppd > /dev/null
         killall -SIGHUP pppd
+        changes="false"
       fi
     fi
   sleep 5
