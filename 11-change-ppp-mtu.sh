@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 # Which PPP interfaces to monitor?
 # You can list multiple interfaces like this
 # MINTERFACES="(ppp0|ppp1|ppp10)"
@@ -23,11 +23,11 @@ while true; do
         # Check to see if this is an interface we should be monitoring for MTU
         if [[ $pinterface =~ $MINTERFACES ]]; then
           # Check to see if we need to update the config file
+          echo Checking $pinterface > /dev/null
           pmtu=$(grep $(($PTARGET-8)) /etc/ppp/peers/$pinterface)
           if [[ $pmtu ]]; then
             echo Updating config file for $pinterface > /dev/null
-            # We will be making some changes, set this flag
-            changes="true"
+            echo Making changes to /etc/ppp/peers/$pinterface > /dev/null
             # Update MTU in ppp interface config file
             sed -i 's/ '$(($PTARGET-8))'/ '$PTARGET'/g' /etc/ppp/peers/$pinterface
           fi
@@ -36,11 +36,11 @@ while true; do
           # Check if we need to change the ethernet MTU instead of just blindly taking interfaces up and down
           emtu=$(ip link show $einterface | head -n1 |sed 's/.*mtu \([0-9]\{4\}\).*/\1/')
           # Current ethernet MTU is incorrect so needs changing
+          echo Checking $einterface > /dev/null
           if [[ $emtu -lt $(($PTARGET+8)) ]] ; then
+            echo $einterface has wrong MTU > /dev/null
             # Use +12 in above command if PPPoE over VLAN
             echo Reconfiguring ethernet MTU to $(($PTARGET+8)) for $einterface > /dev/null
-            # We will be making some changes, set this flag
-            changes="true"
             # Set eth interface MTU to ppp interface MTU + 8
             # This works for straight PPPoE as used in UK broadband
             ip link set dev $einterface mtu $(($PTARGET+8))
@@ -48,16 +48,17 @@ while true; do
             # ip link set dev $einterface mtu $(($PTARGET+12)) && ip link set dev $einterface.6 mtu $(($PTARGET+8))
             # Bring interface down and up to apply changes
             ip link set $einterface down && ip link set $einterface up
+          else
+            echo $einterface has right MTU > /dev/null
           fi
+          ip link set $pinterface mtu $PTARGET
         fi
       done
-      if [[ $changes == "true" ]]; then
-        # If we made any changes to config files, send signal to pppd to apply changes
-        # This does take down existing ppp links but as pppd comes straight back up, so should the links
-        echo Sending SIGHUP to pppd > /dev/null
-        killall -SIGHUP pppd
-        changes="false"
-      fi
+      # Kill pppd to apply changes (it gets restarted automatically)
+      # This does take down existing ppp links but as pppd comes straight back up, so should the links
+      # Only kill pppd if there are ppp interfaces active and changes were made
+      echo Killing pppd > /dev/null
+      killall pppd
     fi
   sleep 5
 done
