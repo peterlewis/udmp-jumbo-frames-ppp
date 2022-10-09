@@ -6,7 +6,7 @@
 # We want to run in busybox shell on a UDM-Pro and bash on a UDM-SE
 
 if [ -f /bin/bash ]; then
-  /bin/bash /mnt/data/11-change-ppp-mtu.sh &
+  /bin/bash /mnt/data/change-ppp-mtu/11-change-ppp-mtu.sh &
 else
-  /bin/sh /mnt/data/11-change-ppp-mtu.sh &
+  /bin/sh /mnt/data/change-ppp-mtu/11-change-ppp-mtu.sh &
 fi
