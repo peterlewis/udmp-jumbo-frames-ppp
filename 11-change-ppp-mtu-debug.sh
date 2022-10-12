@@ -6,6 +6,11 @@ MINTERFACES="(ppp0)"
 # Desired MTU of PPP interfaces
 PTARGET=1500
 
+runningmtu=0
+restartpppd=0
+emtucorrect=0
+pmtucorrect=0
+
 function check_mtu {
     ip link list | grep -E $MINTERFACES | grep 'mtu '$PTARGET > /dev/null
 }
@@ -69,7 +74,7 @@ while true; do
           if [ $pmtucorrect -eq 1 ] && [ $emtucorrect -eq 1 ]; then
             # Config files are all correct
             echo Config files are now all set correctly
-            runningmtu=$(ip link list $pinterface | grep $(($PTARGET-8)))
+            runningmtu=$(ip link list | grep $pinterface | grep $(($PTARGET-8)))
             if $runningmtu; then
               echo $pinterface still has wrong MTU
               restartpppd=1
