@@ -10,21 +10,21 @@ UDMP Monitor PPP MTU has to have the Boot script installed from this repo https:
 
 ## Installation
 
-1. Place the 10-monitor-ppp-mtu.sh in /mnt/data/on_boot.d/ folder and mark it as executable
+1. Place the 10-monitor-ppp-mtu.sh in /data/on_boot.d/ folder and mark it as executable
 2. Customise the 11-change-ppp-mtu.sh script to reflect your configuration - the defaults work well if all your PPP interfaces are FTTC and FTTP in the UK.
-3. Create the directory /mnt/data/change-ppp-mtu if it doesn't already exist
-4. Place the 11-change-ppp-mtu.sh in the /mnt/data/change-ppp-mtu folder and mark it as exectable
+3. Create the directory /data/change-ppp-mtu if it doesn't already exist
+4. Place the 11-change-ppp-mtu.sh in the /data/change-ppp-mtu folder and mark it as exectable
 
 ```bash
-mkdir -p /mnt/data/change-ppp-mtu
-curl -Lo /mnt/data/on_boot.d/10-monitor-ppp-mtu.sh https://raw.githubusercontent.com/TotalGriffLock/udmp-jumbo-frames-ppp/main/10-monitor-ppp-mtu.sh
-curl -Lo /mnt/data/change-ppp-mtu/11-change-ppp-mtu.sh https://raw.githubusercontent.com/TotalGriffLock/udmp-jumbo-frames-ppp/main/11-change-ppp-mtu.sh
-chmod +x /mnt/data/on_boot.d/10-monitor-ppp-mtu.sh
-chmod +x /mnt/data/change-ppp-mtu/11-change-ppp-mtu.sh
+mkdir -p /data/change-ppp-mtu
+curl -Lo /data/on_boot.d/10-monitor-ppp-mtu.sh https://raw.githubusercontent.com/TotalGriffLock/udmp-jumbo-frames-ppp/main/10-monitor-ppp-mtu.sh
+curl -Lo /data/change-ppp-mtu/11-change-ppp-mtu.sh https://raw.githubusercontent.com/TotalGriffLock/udmp-jumbo-frames-ppp/main/11-change-ppp-mtu.sh
+chmod +x /data/on_boot.d/10-monitor-ppp-mtu.sh
+chmod +x /data/change-ppp-mtu/11-change-ppp-mtu.sh
 ```
 The change will take effect on reboot, or you can kick it off by running:
 ```
-/mnt/data/on_boot.d/10-monitor-ppp-mtu.sh
+/data/on_boot.d/10-monitor-ppp-mtu.sh
 ```
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
